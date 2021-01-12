@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 8080;
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static("public"));
 
 // parse application/json
 app.use(bodyParser.json());
