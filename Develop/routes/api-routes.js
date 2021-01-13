@@ -1,13 +1,15 @@
-const notesData = require("../db/db.json");
+const db = require("../db/db.json");
+const app = require("express");
 
-console.log("NOTES:", notesData);
+//function to save new note to db.json
 
-module.exports = function (app) {
-  app.get("/api/notes", function (req, res) {
-    res.json(notesData);
-  });
+module.exports = (app) => {
+  app.post("/api/notes", (req, res) => {
+    const newNote = req.body;
+    newNote.routeName = newNote.title.replace(/\s+/g, "").toLowerCase();
+    console.log(newNote);
 
-  app.post("/api/notes", function (req, res) {
-    notesData.push(req.body);
+    db.push(newNote);
+    res.json(newNote);
   });
 };
